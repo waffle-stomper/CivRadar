@@ -27,5 +27,3 @@ To compile this mod from the source code provided
 3. run gradlew setupDevWorkspace
 4. run gradlew build
 5. BOOM! it'll be in the build/libs folder
-
-Happy Hacking!
