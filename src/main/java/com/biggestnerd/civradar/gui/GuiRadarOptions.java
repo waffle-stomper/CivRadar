@@ -35,7 +35,7 @@ public class GuiRadarOptions extends GuiScreen {
 		this.buttonList.add(coordToggle = new GuiButton(7, this.width / 2 - 100, this.height / 4 + 80, 100, 20, "Coordinates: "));
 		this.buttonList.add(new GuiButton(8, this.width / 2 + 1, this.height / 4 + 80, 100, 20, "Waypoint Shizz"));
 		this.buttonList.add(radarButton = new GuiButton(10, this.width / 2 - 100, this.height / 4 + 104, 100, 20, "Radar: "));
-		this.buttonList.add(haxMode = new GuiButton(9, this.width / 2 + 1, this.height / 4 + 104, 100, 20, "Hax mode: "));
+		this.buttonList.add(haxMode = new GuiButton(9, this.width / 2 + 1, this.height / 4 + 104, 100, 20, "Dubstep mode: "));
 		this.buttonList.add(new GuiButton(100, this.width / 2 - 100, this.height / 4 + 128, "Done"));
 	}
 	
@@ -68,7 +68,7 @@ public class GuiRadarOptions extends GuiScreen {
 			mc.displayGuiScreen(new GuiWaypointOptions(this));
 		}
 		if(id == 9) {
-			CivRadar.instance.getConfig().setHaxMode(!CivRadar.instance.getConfig().isHaxMode());
+			CivRadar.instance.getConfig().setDubstepMode(!CivRadar.instance.getConfig().isDubstepMode());
 			CivRadar.instance.saveConfig();
 		}
 		if(id == 10) {
@@ -85,7 +85,7 @@ public class GuiRadarOptions extends GuiScreen {
 		config.setRadarOpacity(opacitySlider.getCurrentValue());
 		config.setRadarScale(scaleSlider.getCurrentValue());
 		coordToggle.displayString = "Coordinates: " + (CivRadar.instance.getConfig().isRenderCoordinates() ? "On" : "Off");
-		haxMode.displayString = "Hax Mode: " + (CivRadar.instance.getConfig().isHaxMode() ? "On":"Off"); 
+		haxMode.displayString = "Dubstep Mode: " + (CivRadar.instance.getConfig().isDubstepMode() ? "On":"Off"); 
 		radarButton.displayString = "Radar: " + (CivRadar.instance.getConfig().isEnabled() ? "On" : "Off");
 		CivRadar.instance.saveConfig();
 		opacitySlider.updateDisplayString();
