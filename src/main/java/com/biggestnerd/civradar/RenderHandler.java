@@ -319,7 +319,10 @@ public class RenderHandler extends Gui {
 			float displayZ = (float)point.getZ() - playerZ;
 			
 			//z is what would typically be y here btw
-			//my friend laura provided moral support
+			//The ever so lovely Laura [REDACTED] is a math godess
+			//While she did not provide the math used here, she is still very good at math
+			//Also she was very helpful in me figuring this math out for myself
+			//I hope this makes her happy
 			if(distance > maxView) {
 				float slope = displayZ / displayX;
 				displayX = -((float)Math.sqrt(Math.pow(maxView, 2) / (1 + Math.pow(slope, 2))));
