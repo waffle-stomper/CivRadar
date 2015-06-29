@@ -1,4 +1,4 @@
-## CivRadar (FML 1.8) [![Build Status](http://dydoisbutts.info:8080/job/CivRadar/badge/icon)](http://dydoisbutts.info:8080/job/CivRadar/)
+## CivRadar (FML 1.8) [![Build Status](http://vps40435.vps.ovh.ca:8080/job/CivRadar/badge/icon)](http://vps40435.vps.ovh.ca:8080/job/CivRadar/)
 A radar mod for Civcraft
 
 All the gradle stuff is from [Lunatrius](https://github.com/Lunatrius/Schematica) so ty for that
