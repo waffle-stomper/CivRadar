@@ -11,6 +11,7 @@ import net.minecraft.client.gui.GuiSlot;
 import net.minecraft.client.gui.GuiYesNoCallback;
 
 import com.biggestnerd.civradar.CivRadar;
+import com.biggestnerd.civradar.Config;
 import com.biggestnerd.civradar.Entity;
 
 public class GuiEntitySettings extends GuiScreen implements GuiYesNoCallback {
@@ -18,6 +19,7 @@ public class GuiEntitySettings extends GuiScreen implements GuiYesNoCallback {
 	private final GuiScreen parent;
 	private final ArrayList<Entity> entityList;
 	private int selected = -1;
+	private GuiSlider opacitySlider;
 	private GuiButton enableButton;
 	private GuiButton disableButton;
 	private EntityList entityListContainer;
@@ -29,9 +31,10 @@ public class GuiEntitySettings extends GuiScreen implements GuiYesNoCallback {
 	
 	public void initGui() {
 		this.buttonList.clear();
-		this.buttonList.add(enableButton = new GuiButton(0, this.width / 2 - 100, this.height - 44, 99, 20, "Enable"));
-		this.buttonList.add(disableButton = new GuiButton(1, this.width / 2 + 1, this.height - 44, 99, 20, "Disable"));
-		this.buttonList.add(new GuiButton(100, this.width / 2 - 100, this.height - 22, "Done"));
+		this.buttonList.add(opacitySlider = new GuiSlider(3, this.width / 2 -100, this.height - 63, 1.0F, 0.0F, "Icon Opacity", CivRadar.instance.getConfig().getIconOpacity()));
+		this.buttonList.add(enableButton = new GuiButton(0, this.width / 2 - 100, this.height - 42, 99, 20, "Enable"));
+		this.buttonList.add(disableButton = new GuiButton(1, this.width / 2 + 1, this.height - 42, 99, 20, "Disable"));
+		this.buttonList.add(new GuiButton(100, this.width / 2 - 100, this.height - 21, "Done"));
 		this.entityListContainer = new EntityList(this.mc);
 		this.entityListContainer.registerScrollButtons(4, 5);
 	}
@@ -39,6 +42,13 @@ public class GuiEntitySettings extends GuiScreen implements GuiYesNoCallback {
 	public void handleMouseInput() throws IOException {
 		super.handleMouseInput();
 		this.entityListContainer.handleMouseInput();
+	}
+	
+	public void updateScreen() {
+		Config config = CivRadar.instance.getConfig();
+		config.setIconOpacity(opacitySlider.getCurrentValue());
+		CivRadar.instance.saveConfig();
+		opacitySlider.updateDisplayString();
 	}
 	
 	private void enableOrDisableSelectedEntity(boolean enabled) {

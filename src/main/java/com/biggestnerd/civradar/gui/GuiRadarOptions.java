@@ -27,7 +27,7 @@ public class GuiRadarOptions extends GuiScreen {
 		Keyboard.enableRepeatEvents(true);
 		this.buttonList.clear();
 		this.buttonList.add(new GuiButton(0, this.width / 2 - 100, this.height / 4 - 16, 100, 20, "Reposition Radar"));
-		this.buttonList.add(new GuiButton(1, this.width / 2 + 1, this.height / 4 - 16, 100, 20, "Edit Enabled Icons"));
+		this.buttonList.add(new GuiButton(1, this.width / 2 + 1, this.height / 4 - 16, 100, 20, "Icon Settings"));
 		this.buttonList.add(opacitySlider = new GuiSlider(3, this.width / 2 -100, this.height / 4 + 8, 1.0F, 0.0F, "Radar Opacity", CivRadar.instance.getConfig().getRadarOpacity()));
 		this.buttonList.add(new GuiButton(4, this.width / 2 - 100, this.height / 4 + 32, 100, 20, "Edit Radar Color"));
 		this.buttonList.add(new GuiButton(5, this.width / 2 + 1, this.height /4 + 32, 100, 20, "Edit Player Options"));

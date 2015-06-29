@@ -54,6 +54,7 @@ public class Config {
 	private int radarY = 0;
 	private int maxWaypointDistance = 500;
 	private float radarOpacity = 0.5F;
+	private float iconOpacity = 1.0F;
 	private float waypointOpcaity = 0.5F;
 	private boolean renderWaypoints = true;
 	private Color radarColor = new Color(0.0F, 0.5F, 0.5F);
@@ -232,6 +233,14 @@ public class Config {
 
 	public void setRadarOpacity(float radarOpacity) {
 		this.radarOpacity = radarOpacity;
+	}
+	
+	public float getIconOpacity() {
+		return iconOpacity;
+	}
+	
+	public void setIconOpacity(float iconOpacity) {
+		this.iconOpacity = iconOpacity;
 	}
 
 	public float getWaypointOpcaity() {

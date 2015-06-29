@@ -21,6 +21,7 @@ public class GuiWaypointList extends GuiScreen {
 	private GuiButton enableButton;
 	private GuiButton disableButton;
 	private GuiButton editButton;
+	private GuiButton deleteButton;
 	private WaypointList waypointListContainer;
 	
 	public GuiWaypointList(GuiScreen parent) {
@@ -29,16 +30,19 @@ public class GuiWaypointList extends GuiScreen {
 	
 	public void initGui() {
 		this.buttonList.clear();
-		this.buttonList.add(enableButton = new GuiButton(0, this.width / 2 - 100, this.height - 64, 64, 20, "Enable"));
-		this.buttonList.add(disableButton = new GuiButton(1, this.width / 2 - 32, this.height - 64, 64, 20, "Disable"));
-		this.buttonList.add(editButton = new GuiButton(2, this.width / 2 + 36, this.height - 64, 64, 20, "Edit"));
-		this.buttonList.add(new GuiButton(3, this.width / 2 - 100, this.height - 43, 64, 20, "Enable All"));
-		this.buttonList.add(new GuiButton(4, this.width / 2 - 32, this.height - 43, 64, 20, "Disable All"));
-		this.buttonList.add(new GuiButton(5, this.width / 2 + 36, this.height - 43, 64, 20, "Delete"));
-		this.buttonList.add(new GuiButton(100, this.width / 2 - 100, this.height - 22, "Done"));
+		this.buttonList.add(enableButton = new GuiButton(0, this.width / 2 - 100, this.height - 63, 64, 20, "Enable"));
+		this.buttonList.add(disableButton = new GuiButton(1, this.width / 2 - 32, this.height - 63, 64, 20, "Disable"));
+		this.buttonList.add(editButton = new GuiButton(2, this.width / 2 + 36, this.height - 63, 64, 20, "Edit"));
+		this.buttonList.add(new GuiButton(3, this.width / 2 - 100, this.height - 42, 64, 20, "Enable All"));
+		this.buttonList.add(new GuiButton(4, this.width / 2 - 32, this.height - 42, 64, 20, "Disable All"));
+		this.buttonList.add(deleteButton = new GuiButton(5, this.width / 2 + 36, this.height - 42, 64, 20, "Delete"));
+		this.buttonList.add(new GuiButton(100, this.width / 2 - 100, this.height - 21, "Done"));
 		this.waypointListContainer = new WaypointList(this.mc);
 		this.waypointListContainer.registerScrollButtons(4, 5);
 		editButton.enabled = false;
+		enableButton.enabled = false;
+		disableButton.enabled = false;
+		deleteButton.enabled = false;
 		this.waypointList = CivRadar.instance.getWaypointSave().getWaypoints();
 	}
 	
@@ -96,6 +100,7 @@ public class GuiWaypointList extends GuiScreen {
 	
 	public void updateScreen() {
 		this.waypointList = CivRadar.instance.getWaypointSave().getWaypoints();
+
 	}
 	
 	class WaypointList extends GuiSlot {
@@ -114,6 +119,7 @@ public class GuiWaypointList extends GuiScreen {
 			GuiWaypointList.this.enableButton.enabled = isValidSlot;
 			GuiWaypointList.this.disableButton.enabled = isValidSlot;
 			GuiWaypointList.this.editButton.enabled = isValidSlot;
+			GuiWaypointList.this.deleteButton.enabled = isValidSlot;
 		}
 		
 		protected boolean isSelected(int slotIndex) {

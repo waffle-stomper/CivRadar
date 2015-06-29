@@ -183,7 +183,7 @@ public class RenderHandler extends Gui {
 	
 	private void drawTriangle(int x, int y, Color c) {
 		GL11.glRotatef(180.0F, 0.0F, 0.0F, 1.0F);
-		GL11.glColor4f(c.getRed() / 255.0F, c.getGreen() / 255.0F, c.getBlue() / 255.0F, 1.0F);
+		GL11.glColor4f(c.getRed() / 255.0F, c.getGreen() / 255.0F, c.getBlue() / 255.0F, config.getRadarOpacity() + 0.5F);
 		GL11.glEnable(3042);
 		GL11.glDisable(3553);
 		GL11.glEnable(2848);
@@ -242,7 +242,7 @@ public class RenderHandler extends Gui {
 		GL11.glPushMatrix();
 		GL11.glScalef(0.5F, 0.5F, 0.5F);
 		GL11.glTranslatef(x +1, y +1, 0.0F);
-		GL11.glColor4f(1.0F, 1.0F, 1.0F, config.getRadarOpacity() + 0.5F);
+		GL11.glColor4f(1.0F, 1.0F, 1.0F, config.getIconOpacity());
 		GL11.glRotatef(mc.thePlayer.rotationYaw, 0.0F, 0.0F, 1.0F);
 		mc.getRenderItem().renderItemIntoGUI(item, -8, -8);
 		GL11.glTranslatef(-x -1, -y -1, 0.0F);
@@ -252,7 +252,7 @@ public class RenderHandler extends Gui {
 	}
 	
 	private void renderPlayerHeadIcon(int x, int y, EntityOtherPlayerMP player) throws Exception {
-		GL11.glColor4f(1.0F, 1.0F, 1.0F, config.getRadarOpacity() + 0.5F);
+		GL11.glColor4f(1.0F, 1.0F, 1.0F, config.getIconOpacity());
 		GL11.glEnable(3042);
 		GL11.glPushMatrix();
 		GL11.glScalef(0.5F, 0.5F, 0.5F);
@@ -284,7 +284,7 @@ public class RenderHandler extends Gui {
 	
 	private void renderIcon(int x, int y, ResourceLocation resource) {
 		mc.getTextureManager().bindTexture(resource);
-		GL11.glColor4f(1.0F, 1.0F, 1.0F, config.getRadarOpacity() + 0.5F);
+		GL11.glColor4f(1.0F, 1.0F, 1.0F, config.getIconOpacity());
 		GL11.glEnable(3042);
 		GL11.glPushMatrix();
 		GL11.glScalef(0.5F, 0.5F, 0.5F);
@@ -325,11 +325,11 @@ public class RenderHandler extends Gui {
 			//I hope this makes her happy
 			if(distance > maxView) {
 				float slope = displayZ / displayX;
-				displayX = -((float)Math.sqrt(Math.pow(maxView, 2) / (1 + Math.pow(slope, 2))));
+				displayX = Math.abs((float)Math.sqrt(Math.pow(maxView, 2) / (1 + Math.pow(slope, 2)))) * (point.getX() < 0 ? -1 : 1);
 				displayZ = slope * displayX;
 			}
 			
-			float scale = 0.45F * (float)(Math.max(10.0D, distance) / 120);//old scaling math: (float) (Math.max(2, distance /5) * 0.0185f);
+			float scale = 0.45F * (float)(Math.max(10.0D, Math.min(distance, maxView)) / 120);//old scaling math: (float) (Math.max(2, distance /5) * 0.0185f);
 			
 			GL11.glColor4f(1f, 1f, 1f, 1f);
 			GL11.glPushMatrix();
