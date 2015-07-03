@@ -160,6 +160,7 @@ public class RenderHandler extends Gui {
 		
 		drawTriangle(0, 0, Color.WHITE);
 		GL11.glScalef(2.0F, 2.0F, 2.0F);
+		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		GL11.glPopMatrix();
 	}
 	
