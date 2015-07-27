@@ -10,6 +10,7 @@ import net.minecraft.client.entity.EntityOtherPlayerMP;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -40,7 +41,7 @@ public class RenderHandler extends Gui {
 	private float radarScale;
 	ArrayList<String> inRangePlayers;
 	private Color dubstepColor = Color.BLACK;
-	private long dubstepTimer = 0;
+	private Color dubstepColorBox = Color.BLACK;
 	
 	public RenderHandler() {
 		inRangePlayers = new ArrayList<String>();
@@ -55,11 +56,12 @@ public class RenderHandler extends Gui {
 			GL11.glScalef(2.0f, 2.0f, 2.0f);
 			ScaledResolution res = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight);
 			int halfWidth = res.getScaledWidth() / 4;
-			int stringWidth = mc.fontRendererObj.getStringWidth("Dubstep Mode Enabled");
+			int stringWidth = mc.fontRendererObj.getStringWidth("Dank Memes Enabled");
 			int height = res.getScaledHeight() / 8;
-			mc.fontRendererObj.drawStringWithShadow("Dubstep Mode Enabled", halfWidth - (stringWidth / 2), height, dubstepColor.getRGB());
+			mc.fontRendererObj.drawStringWithShadow("Dank Memes Enabled", halfWidth - (stringWidth / 2), height, dubstepColor.getRGB());
 			GL11.glScalef(1.0f, 1.0f, 1.0f);
 			GL11.glPopMatrix();
+			renderOverlayBox();
 		}
 		if(config.isEnabled()) {
 			drawRadar();
@@ -90,10 +92,7 @@ public class RenderHandler extends Gui {
 			if(config.isDubstepMode()) {
 				Random rand = new Random();
 				dubstepColor = new Color(rand.nextFloat(), rand.nextFloat(), rand.nextFloat());
-				if((System.currentTimeMillis() - 202000) >= dubstepTimer) {
-					dubstepTimer = System.currentTimeMillis();
-					mc.theWorld.playSoundAtEntity(mc.thePlayer, "civradar:dubstep", 1, 1);
-				}
+				dubstepColorBox = new Color(rand.nextFloat(), rand.nextFloat(), rand.nextFloat(), 0.2F);
 			}
 		}
 	}
@@ -213,7 +212,9 @@ public class RenderHandler extends Gui {
 			int displayPosX = playerPosX - entityPosX;
 			int displayPosZ = playerPosZ - entityPosZ;
 			if(e != mc.thePlayer) {
-				if(e instanceof EntityItem) {
+				if(config.isDubstepMode()) {
+					renderPepe(displayPosX, displayPosZ);
+				} else if(e instanceof EntityItem) {
 					EntityItem item = (EntityItem) e;
 					if(config.isRender(EntityItem.class)) {
 						renderItemIcon(displayPosX, displayPosZ, item.getEntityItem());
@@ -237,6 +238,22 @@ public class RenderHandler extends Gui {
 				}
 			}
 		}
+	}
+	
+	private void renderPepe(int x, int y) {
+		mc.getTextureManager().bindTexture(new ResourceLocation("civRadar/icons/pepe.png"));
+		GL11.glColor4f(1.0F, 1.0F, 1.0F, config.getIconOpacity());
+		GL11.glEnable(3042);
+		GL11.glPushMatrix();
+		GL11.glScalef(0.5F, 0.5F, 0.5F);
+		GL11.glTranslatef(x + 1, y + 1, 0.0F);
+		GL11.glRotatef(mc.thePlayer.rotationYaw, 0.0F, 0.0F, 1.0F);
+		drawModalRectWithCustomSizedTexture(-8, -8, 0, 0, 16, 16, 16, 16);
+		GL11.glTranslatef(-x -1, -y -1, 0.0F);
+		GL11.glScalef(2.0F, 2.0F, 2.0F);
+		GL11.glDisable(2896);
+		GL11.glDisable(3042);
+		GL11.glPopMatrix();
 	}
 	
 	private void renderItemIcon(int x, int y, ItemStack item) {
@@ -364,5 +381,31 @@ public class RenderHandler extends Gui {
 			GL11.glEnable(GL11.GL_DEPTH_TEST);
 			GL11.glPopMatrix();
 		}
+	}
+	
+	private void renderOverlayBox() {
+		GL11.glPushMatrix();
+		GL11.glTranslatef(0.0F, 0.0F, 0.0F);
+		GL11.glScalef(1.0F, 1.0F, 1.0F);
+		GL11.glDisable(GL11.GL_LIGHTING);
+		GL11.glDepthMask(false);
+		GL11.glDisable(GL11.GL_DEPTH_TEST);
+		GL11.glEnable(GL11.GL_BLEND);
+		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GL11.glDisable(GL11.GL_TEXTURE_2D);
+		Tessellator tess = Tessellator.getInstance();
+		WorldRenderer wr = tess.getWorldRenderer();
+		wr.startDrawingQuads();
+		wr.setColorRGBA_F(dubstepColorBox.getRed() / 255.0F, dubstepColorBox.getGreen() / 255.0F, dubstepColorBox.getBlue() / 255.0F, 0.15F);
+		wr.addVertex(0.0D, (double)mc.displayHeight, 0.0D);
+		wr.addVertex((double)mc.displayWidth, (double)mc.displayHeight, 0.0D);
+		wr.addVertex((double)mc.displayWidth, 0.0D, 0.0D);
+		wr.addVertex(0.0D, 0.0D, 0.0D);
+		tess.draw();
+		GL11.glEnable(GL11.GL_TEXTURE_2D);
+		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+		GL11.glDepthMask(true);
+		GL11.glEnable(GL11.GL_DEPTH_TEST);
+		GL11.glPopMatrix();
 	}
 }
