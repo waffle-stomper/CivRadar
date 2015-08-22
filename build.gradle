@@ -17,9 +17,9 @@ buildscript {
 
 apply plugin: 'forge'
 
-version = "beta-1.3.2"
-group= "com.biggestnerd.civradar" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "[1.8]CivRadar"
+version = "v1.3.1"
+group= "com.biggestnerd.autojoin" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = "[1.8]AutoJoin"
 
 minecraft {
     version = "1.8-11.14.1.1404"
