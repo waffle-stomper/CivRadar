@@ -22,9 +22,7 @@ plugins {
 */
 version = "1.0"
 group= "com.biggestnerd.civradar" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "CivRadar"
-modid = "civradar"
-description = "A radar mod made for the Civcraft server"
+archivesBaseName = "${minecraft.version}-CivRadar"
 
 
 minecraft {
