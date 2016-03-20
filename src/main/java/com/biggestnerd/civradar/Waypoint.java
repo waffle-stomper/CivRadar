@@ -3,7 +3,7 @@ package com.biggestnerd.civradar;
 import java.awt.Color;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.MathHelper;
 
 public class Waypoint {
 
@@ -22,7 +22,7 @@ public class Waypoint {
 		this.green = c.getGreen() / 255.0F;
 		this.blue = c.getBlue() / 255.0F;
 		if (Minecraft.getMinecraft().theWorld != null)
-			this.dimension = Minecraft.getMinecraft().theWorld.provider.getDimensionId();
+			this.dimension = Minecraft.getMinecraft().theWorld.provider.getDimension();
 		this.enabled = enabled;
 	}
 	

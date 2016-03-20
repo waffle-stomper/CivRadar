@@ -27,7 +27,7 @@ import com.biggestnerd.civradar.gui.GuiRadarOptions;
 public class CivRadar {
 	public final static String MODID = "civradar";
 	public final static String MODNAME = "CivRadar";
-	public final static String VERSION = "beta-1.3.2";
+	public final static String VERSION = "1.0";
 	private RenderHandler renderHandler;
 	private Config radarConfig;
 	private File configFile;
@@ -91,10 +91,10 @@ public class CivRadar {
 	
 	@SubscribeEvent
 	public void keyPress(KeyInputEvent event) {
-		if(radarOptions.isKeyDown()) {
+		if(radarOptions.isPressed()) {
 			mc.displayGuiScreen(new GuiRadarOptions(mc.currentScreen));
 		}
-		if(addWaypoint.isKeyDown()) {
+		if(addWaypoint.isPressed()) {
 			mc.displayGuiScreen(new GuiAddWaypoint(mc.currentScreen));
 		}
 	}

@@ -1,16 +1,10 @@
 [
 {
-  "modid": "{modid}",
-  "name": "{name}",
-  "description": "Radar mod for Civcraft",
-  "version": "{version}",
-  "mcversion": "1.8",
-  "url": "",
-  "updateUrl": "",
+  "modid": "${modid}",
+  "name": "${archivesBaseName}",
+  "description": "Shows player logins and logouts",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
   "authorList": ["TealNerd"],
-  "credits": "",
-  "logoFile": "",
-  "screenshots": [],
-  "dependencies": []
 }
 ]

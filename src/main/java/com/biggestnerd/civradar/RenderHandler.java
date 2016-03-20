@@ -5,15 +5,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import org.lwjgl.opengl.GL11;
+
+import com.biggestnerd.civradar.Config.NameLocation;
+
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.Sound;
 import net.minecraft.client.entity.EntityOtherPlayerMP;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityMinecart;
@@ -21,15 +26,13 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
-
-import org.lwjgl.opengl.GL11;
-
-import com.biggestnerd.civradar.Config.NameLocation;
 
 public class RenderHandler extends Gui {
 
@@ -54,7 +57,7 @@ public class RenderHandler extends Gui {
 		if(config.isDubstepMode()) {
 			GL11.glPushMatrix();
 			GL11.glScalef(2.0f, 2.0f, 2.0f);
-			ScaledResolution res = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight);
+			ScaledResolution res = new ScaledResolution(mc);
 			int halfWidth = res.getScaledWidth() / 4;
 			int stringWidth = mc.fontRendererObj.getStringWidth("Dank Memes Enabled");
 			int height = res.getScaledHeight() / 8;
@@ -85,7 +88,7 @@ public class RenderHandler extends Gui {
 			ArrayList<String> temp = (ArrayList)newInRangePlayers.clone();
 			newInRangePlayers.removeAll(inRangePlayers);
 			for(String name : newInRangePlayers) {	
-				mc.theWorld.playSound(mc.thePlayer.posX, mc.thePlayer.posY, mc.thePlayer.posZ, "minecraft:note.pling", config.getPingVolume(), 1.0F, false);
+				mc.thePlayer.playSound(new SoundEvent(new ResourceLocation("block.note.pling")), config.getPingVolume(), 1.0F);
 			}
 			inRangePlayers = temp;
 			
@@ -104,7 +107,7 @@ public class RenderHandler extends Gui {
 		}
 		if(config.isRenderWaypoints()) {
 			for(Waypoint point : CivRadar.instance.getWaypointSave().getWaypoints()) {
-				if(point.getDimension() == mc.theWorld.provider.getDimensionId() && point.isEnabled()) {
+				if(point.getDimension() == mc.theWorld.provider.getDimension() && point.isEnabled()) {
 					renderWaypoint(point, event);
 				}
 			}
@@ -117,7 +120,7 @@ public class RenderHandler extends Gui {
 			radarColor = dubstepColor;
 		}
 		radarScale = config.getRadarScale();
-		ScaledResolution res = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight);
+		ScaledResolution res = new ScaledResolution(mc);
 		int width = res.getScaledWidth();
 		GL11.glPushMatrix();
 		GL11.glTranslatef(width - (65 * radarScale) + (config.getRadarX()), (65 * radarScale) + (config.getRadarY()), 0.0F);
@@ -325,7 +328,7 @@ public class RenderHandler extends Gui {
 		if(distance <= config.getMaxWaypointDistance() || config.getMaxWaypointDistance() < 0) {
 			FontRenderer fr = mc.fontRendererObj;
 			Tessellator tess = Tessellator.getInstance();
-			WorldRenderer wr = tess.getWorldRenderer();
+			VertexBuffer vb = tess.getBuffer();
 			RenderManager rm = mc.getRenderManager();
 			
 			float playerX = (float) (mc.thePlayer.lastTickPosX + (mc.thePlayer.posX - mc.thePlayer.lastTickPosX) * partialTickTime);
@@ -365,13 +368,13 @@ public class RenderHandler extends Gui {
 			int width = fr.getStringWidth(name);
 			int height = 10;
 			GL11.glDisable(GL11.GL_TEXTURE_2D);
-			wr.startDrawingQuads();
+			vb.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_COLOR);
 			int stringMiddle = width / 2;
-			wr.setColorRGBA_F(c.getRed() / 255.0F, c.getGreen() / 255.0F, c.getBlue() / 255.0F, config.getWaypointOpcaity());
-			wr.addVertex(-stringMiddle - 1, -1, 0.0D);
-			wr.addVertex(-stringMiddle - 1, 1 + height, 0.0D);
-			wr.addVertex(stringMiddle + 1, 1 + height, 0.0D);
-			wr.addVertex(stringMiddle + 1,  -1, 0.0D);
+			vb.color(c.getRed() / 255.0F, c.getGreen() / 255.0F, c.getBlue() / 255.0F, config.getWaypointOpcaity());
+			vb.pos(-stringMiddle - 1, -1, 0.0D);
+			vb.pos(-stringMiddle - 1, 1 + height, 0.0D);
+			vb.pos(stringMiddle + 1, 1 + height, 0.0D);
+			vb.pos(stringMiddle + 1,  -1, 0.0D);
 			tess.draw();
 			GL11.glEnable(GL11.GL_TEXTURE_2D);
 			
@@ -394,13 +397,13 @@ public class RenderHandler extends Gui {
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		GL11.glDisable(GL11.GL_TEXTURE_2D);
 		Tessellator tess = Tessellator.getInstance();
-		WorldRenderer wr = tess.getWorldRenderer();
-		wr.startDrawingQuads();
-		wr.setColorRGBA_F(dubstepColorBox.getRed() / 255.0F, dubstepColorBox.getGreen() / 255.0F, dubstepColorBox.getBlue() / 255.0F, 0.15F);
-		wr.addVertex(0.0D, (double)mc.displayHeight, 0.0D);
-		wr.addVertex((double)mc.displayWidth, (double)mc.displayHeight, 0.0D);
-		wr.addVertex((double)mc.displayWidth, 0.0D, 0.0D);
-		wr.addVertex(0.0D, 0.0D, 0.0D);
+		VertexBuffer vb = tess.getBuffer();
+		vb.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_COLOR);
+		vb.color(dubstepColorBox.getRed() / 255.0F, dubstepColorBox.getGreen() / 255.0F, dubstepColorBox.getBlue() / 255.0F, 0.15F);
+		vb.pos(0.0D, (double)mc.displayHeight, 0.0D);
+		vb.pos((double)mc.displayWidth, (double)mc.displayHeight, 0.0D);
+		vb.pos((double)mc.displayWidth, 0.0D, 0.0D);
+		vb.pos(0.0D, 0.0D, 0.0D);
 		tess.draw();
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
