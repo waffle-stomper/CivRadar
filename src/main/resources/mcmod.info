@@ -1,8 +1,8 @@
 [
 {
-  "modid": "${modid}",
+  "modid": "civradar",
   "name": "${archivesBaseName}",
-  "description": "Shows player logins and logouts",
+  "description": "Radar mod for minecraft",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "authorList": ["TealNerd"],
