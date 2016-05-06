@@ -24,9 +24,14 @@ version = "1.0"
 group= "com.biggestnerd.civradar" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "1.9-CivRadar"
 
+jar {
+        manifest {
+        attributes 'FMLAT': 'civradar_at.cfg'
+    }
+}
 
 minecraft {
-    version = "1.9-12.16.0.1776-1.9"
+    version = "1.9-12.16.1.1891"
     runDir = "run"
     
     // the mappings can be changed at any time, and must be in the following format.
