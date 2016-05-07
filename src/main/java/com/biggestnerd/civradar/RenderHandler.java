@@ -52,7 +52,7 @@ public class RenderHandler extends Gui {
 	
 	@SubscribeEvent
 	public void renderRadar(RenderGameOverlayEvent event) {
-		if(event.type != RenderGameOverlayEvent.ElementType.CROSSHAIRS)
+		if(event.getType() != RenderGameOverlayEvent.ElementType.CROSSHAIRS)
 			return;
 		if(config.isDubstepMode()) {
 			GL11.glPushMatrix();
@@ -322,7 +322,7 @@ public class RenderHandler extends Gui {
 	private void renderWaypoint(Waypoint point, RenderWorldLastEvent event) {
 		String name = point.getName();
 		Color c = point.getColor();
-		float partialTickTime = event.partialTicks;
+		float partialTickTime = event.getPartialTicks();
 		double distance = point.getDistance(mc);
 		int maxView = mc.gameSettings.renderDistanceChunks * 22;
 		if(distance <= config.getMaxWaypointDistance() || config.getMaxWaypointDistance() < 0) {
