@@ -7,18 +7,24 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.monster.EntityBlaze;
 import net.minecraft.entity.monster.EntityCaveSpider;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.monster.EntityEnderman;
+import net.minecraft.entity.monster.EntityEndermite;
 import net.minecraft.entity.monster.EntityGhast;
 import net.minecraft.entity.monster.EntityGolem;
 import net.minecraft.entity.monster.EntityGuardian;
 import net.minecraft.entity.monster.EntityIronGolem;
 import net.minecraft.entity.monster.EntityMagmaCube;
 import net.minecraft.entity.monster.EntityPigZombie;
+import net.minecraft.entity.monster.EntityPolarBear;
+import net.minecraft.entity.monster.EntityShulker;
 import net.minecraft.entity.monster.EntitySilverfish;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.EntitySlime;
@@ -39,9 +45,6 @@ import net.minecraft.entity.passive.EntitySquid;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.entity.player.EntityPlayer;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 public class Config {
 	
@@ -97,7 +100,10 @@ public class Config {
 				new Entity(EntityZombie.class),
 				new Entity(EntityItem.class),
 				new Entity(EntityMinecart.class),
-				new Entity(EntityPlayer.class)
+				new Entity(EntityPlayer.class),
+				new Entity(EntityShulker.class),
+				new Entity(EntityPolarBear.class),
+				new Entity(EntityEndermite.class)
 				}));
 	}
 

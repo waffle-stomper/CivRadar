@@ -127,7 +127,7 @@ public class RenderHandler extends Gui {
 		GL11.glScalef(1.0F, 1.0F, 1.0F);
 		if(config.isRenderCoordinates()) {
 			String coords = "(" + (int) mc.thePlayer.posX + "," + (int) mc.thePlayer.posY + "," + (int) mc.thePlayer.posZ + ")";
-			mc.fontRendererObj.drawStringWithShadow(coords, -(mc.fontRendererObj.getStringWidth(coords) / 2), 65 * radarScale, 14737632);
+			mc.fontRendererObj.drawStringWithShadow(coords, -(mc.fontRendererObj.getStringWidth(coords) / 2), 65 * radarScale, Color.WHITE.getRGB());
 		}
 		GL11.glScalef(radarScale, radarScale, radarScale);
 		GL11.glRotatef(-mc.thePlayer.rotationYaw, 0.0F, 0.0F, 1.0F);
@@ -233,7 +233,7 @@ public class RenderHandler extends Gui {
 					}
 				} else if(e instanceof EntityMinecart) {
 					if(config.isRender(EntityMinecart.class)) {
-						ItemStack cart = new ItemStack(Items.minecart);
+						ItemStack cart = new ItemStack(Items.MINECART);
 						renderItemIcon(displayPosX, displayPosZ, cart);
 					}
 				} else if(config.isRender(o.getClass())) {

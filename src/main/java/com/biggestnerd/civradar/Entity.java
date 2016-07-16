@@ -43,7 +43,6 @@ public class Entity {
 	}
 
 	public ResourceLocation getResource() {
-		String[] className = this.className.split("\\.");
-		return new ResourceLocation("civRadar/icons/" + className[className.length - 1].substring(6).toLowerCase() + ".png");
+		return new ResourceLocation("civRadar/icons/" + getEntityName().toLowerCase() + ".png");
 	}
 }
