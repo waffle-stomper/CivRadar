@@ -66,6 +66,7 @@ public class Config {
 	private NameLocation nameLocation = NameLocation.below;
 	private float pingVolume = 0.0F;
 	private boolean dubstepMode = false;
+	private boolean pingRing = true;
 	
 	public Config() {
 		mobs = new ArrayList<Entity>(Arrays.asList(new Entity[]{
@@ -189,6 +190,10 @@ public class Config {
 		this.radarColor = new Color(red, green, blue);
 	}
 	
+	public void setPingRing(boolean pingRing) {
+		this.pingRing = pingRing;
+	}
+	
 	public Color getRadarColor() {
 		return radarColor;
 	}
@@ -263,6 +268,10 @@ public class Config {
 	
 	public void setRenderWaypoints(boolean renderWaypoints) {
 		this.renderWaypoints = renderWaypoints;
+	}
+	
+	public boolean isPingRing() {
+		return pingRing;
 	}
 
 	public void save(File file) {

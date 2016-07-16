@@ -45,6 +45,7 @@ public class GuiEntitySettings extends GuiScreen implements GuiYesNoCallback {
 	}
 	
 	public void updateScreen() {
+		disableButton.enabled = selected > 0 && selected < entityList.size();
 		Config config = CivRadar.instance.getConfig();
 		config.setIconOpacity(opacitySlider.getCurrentValue());
 		CivRadar.instance.saveConfig();

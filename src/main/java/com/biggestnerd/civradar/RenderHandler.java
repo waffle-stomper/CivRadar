@@ -137,7 +137,9 @@ public class RenderHandler extends Gui {
 		GL11.glLineWidth(1.0F);
 		
 		if(pingDelay > 0) {
-			drawCircle(0, 0, 63.0D - pingDelay, radarColor, false);
+			if(config.isPingRing()) {
+				drawCircle(0, 0, 63.0D - pingDelay, radarColor, false);
+			}
 		}
 		GL11.glLineWidth(2.0F);
 		GL11.glDisable(GL11.GL_TEXTURE_2D);
