@@ -5,6 +5,6 @@
   "description": "Radar mod for minecraft",
   "version": "${version}",
   "mcversion": "${mcversion}",
-  "authorList": ["TealNerd"]
+  "authorList": ["TealNerd","waffle-stomper"]
 }
 ]

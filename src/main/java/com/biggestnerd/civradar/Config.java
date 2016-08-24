@@ -55,21 +55,18 @@ public class Config {
 	private boolean playerNames = true;
 	private int radarX = 0;
 	private int radarY = 0;
-	private int maxWaypointDistance = 500;
 	private float radarOpacity = 0.5F;
 	private float iconOpacity = 1.0F;
-	private float waypointOpcaity = 0.5F;
 	private boolean renderWaypoints = true;
 	private Color radarColor = new Color(0.0F, 0.5F, 0.5F);
 	private float radarScale = 1.0F;
 	public enum NameLocation {above,below};
 	private NameLocation nameLocation = NameLocation.below;
 	private float pingVolume = 0.0F;
-	private boolean dubstepMode = false;
 	private boolean pingRing = true;
 	
 	public Config() {
-		mobs = new ArrayList<Entity>(Arrays.asList(new Entity[]{
+		this.mobs = new ArrayList<Entity>(Arrays.asList(new Entity[]{
 				new Entity(EntityBat.class), 
 				new Entity(EntityChicken.class),
 				new Entity(EntityCow.class),
@@ -224,20 +221,6 @@ public class Config {
 		this.radarY = radarY;
 	}
 	
-	public boolean isDubstepMode() {
-		return dubstepMode;
-	}
-	
-	public void setDubstepMode(boolean dubstepMode) {
-		this.dubstepMode = dubstepMode;
-	}
-	
-	public int getMaxWaypointDistance() {
-		return maxWaypointDistance;
-	}
-	public void setMaxWaypointDistance(int maxWaypointDistance) {
-		this.maxWaypointDistance = maxWaypointDistance;
-	}
 	public float getRadarOpacity() {
 		return radarOpacity;
 	}
@@ -252,14 +235,6 @@ public class Config {
 	
 	public void setIconOpacity(float iconOpacity) {
 		this.iconOpacity = iconOpacity;
-	}
-
-	public float getWaypointOpcaity() {
-		return waypointOpcaity;
-	}
-
-	public void setWaypointOpcaity(float waypointOpcaity) {
-		this.waypointOpcaity = waypointOpcaity;
 	}
 	
 	public boolean isRenderWaypoints() {
@@ -278,7 +253,6 @@ public class Config {
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		try {
 			String json = gson.toJson(this);
-			
 			FileWriter fw = new FileWriter(file);
 			fw.write(json);
 			fw.close();

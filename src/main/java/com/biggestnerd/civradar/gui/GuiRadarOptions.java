@@ -33,7 +33,6 @@ public class GuiRadarOptions extends GuiScreen {
 		this.buttonList.add(new GuiButton(5, this.width / 2 + 1, this.height /4 + 32, 100, 20, "Edit Player Options"));
 		this.buttonList.add(scaleSlider = new GuiSlider(6, this.width / 2 - 100, this.height / 4 + 56, 2.0F, 1.0F, "Radar Scale", CivRadar.instance.getConfig().getRadarScale()));
 		this.buttonList.add(coordToggle = new GuiButton(7, this.width / 2 - 100, this.height / 4 + 80, 100, 20, "Coordinates: "));
-		this.buttonList.add(new GuiButton(8, this.width / 2 + 1, this.height / 4 + 80, 100, 20, "Waypoint Shizz"));
 		this.buttonList.add(radarButton = new GuiButton(10, this.width / 2 - 100, this.height / 4 + 104, 100, 20, "Radar: "));
 		this.buttonList.add(pingRing = new GuiButton(9, this.width / 2 + 1, this.height / 4 + 104, 100, 20, "Ping Ring: "));
 		this.buttonList.add(new GuiButton(100, this.width / 2 - 100, this.height / 4 + 128, "Done"));
@@ -64,9 +63,6 @@ public class GuiRadarOptions extends GuiScreen {
 			CivRadar.instance.getConfig().setRenderCoordinates(!CivRadar.instance.getConfig().isRenderCoordinates());
 			CivRadar.instance.saveConfig();
 		}
-		if(id == 8) {
-			mc.displayGuiScreen(new GuiWaypointOptions(this));
-		}
 		if(id == 9) {
 			CivRadar.instance.getConfig().setPingRing(!CivRadar.instance.getConfig().isPingRing());
 			CivRadar.instance.saveConfig();
@@ -77,13 +73,6 @@ public class GuiRadarOptions extends GuiScreen {
 		}
 		if(id == 100) {
 			mc.displayGuiScreen(parentScreen);
-		}
-	}
-	
-	public void keyTyped(char keyChar, int keyCode) {
-		if(keyCode == Keyboard.KEY_D) {
-			CivRadar.instance.getConfig().setDubstepMode(!CivRadar.instance.getConfig().isDubstepMode());
-			CivRadar.instance.saveConfig();
 		}
 	}
 	
