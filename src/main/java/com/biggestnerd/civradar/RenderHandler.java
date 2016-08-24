@@ -15,6 +15,7 @@ import net.minecraft.client.entity.EntityOtherPlayerMP;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -212,7 +213,9 @@ public class RenderHandler extends Gui {
 		GL11.glTranslatef(x +1, y +1, 0.0F);
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, config.getIconOpacity());
 		GL11.glRotatef(mc.thePlayer.rotationYaw, 0.0F, 0.0F, 1.0F);
+		RenderHelper.enableGUIStandardItemLighting(); 
 		mc.getRenderItem().renderItemIntoGUI(item, -8, -8);
+		RenderHelper.disableStandardItemLighting();
 		GL11.glTranslatef(-x -1, -y -1, 0.0F);
 		GL11.glScalef(2.0F, 2.0F, 2.0F);
 		GL11.glDisable(2896);
