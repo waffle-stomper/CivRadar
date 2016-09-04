@@ -1,0 +1,11 @@
+{
+  "homepage": "https://github.com/waffle-stomper/CivRadarLite/releases",
+  "promos":{
+    "1.10.2-recommended": "1.1.1"
+  },
+  "1.10.2":{
+    "1.1.4": "* Fix bug where the first item in the entity icon list, (usually the bat), couldn't be modified",
+    "1.1.2": "* Fix block lighting",
+    "1.1.0": "* Initial Clean-up (mostly removing 'dubstep' mode"
+  }
+}

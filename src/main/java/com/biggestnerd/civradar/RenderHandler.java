@@ -215,7 +215,6 @@ public class RenderHandler extends Gui {
 		GL11.glRotatef(mc.thePlayer.rotationYaw, 0.0F, 0.0F, 1.0F);
 		RenderHelper.enableGUIStandardItemLighting(); 
 		mc.getRenderItem().renderItemAndEffectIntoGUI(item, -8, -8);
-		//mc.getRenderItem().renderItemIntoGUI(item, -8, -8);
 		RenderHelper.disableStandardItemLighting();
 		GL11.glTranslatef(-x -1, -y -1, 0.0F);
 		GL11.glScalef(2.0F, 2.0F, 2.0F);
